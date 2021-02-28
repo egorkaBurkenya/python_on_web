@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% if title %}
+        <title>{{ title }} Page</title>
+    {% else %}
+        <title>Welcome Page</title>
+    {% endif %}
+</head>
+<style>
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.grid {
+    display: flex;
+}
+
+.grid__button {
+    margin-left: 20px;
+}
+
+.grid__href {
+    text-decoration: none;
+}
+
+.form {
+    display: flex;
+}
+
+.form__form {
+    align-items: center;
+}
+
+.submit {
+    background-color: rgb(255, 195, 106);
+}
+
+</style>
+<body>
+    <div class="grid">
+        <div class="grid__button"><a class="grid__href" href="/">Home</a></div>
+        {% if current_user.is_anonymous %}
+            <div class="grid__button"><a class="grid__href" href="/login">Login</a></div>
+        {% else %}
+            <div class="grid__button"><a class="grid__href" href="{{ url_for('user', username=current_user.username) }}">My page</a></div>
+            <div class="grid__button"><a class="grid__href" href="/logout">Logout</a></div>
+        {% endif %}
+    </div>
+    <hr>
+    {% block content %}{% endblock %}
+
+    {% block subContent %}{% endblock %}
+</body>
+</html>
